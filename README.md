@@ -1,29 +1,30 @@
-# Blog API (FastAPI + PostgreSQL)
+# 🚀 Blog API (FastAPI + PostgreSQL)
 
-A RESTful Blog API built using **FastAPI** and **PostgreSQL**, featuring CRUD operations, search, pagination, and file upload functionality.
-
----
-
-## 🚀 Features
-
-- Create, Read, Update, Delete (CRUD) operations
-- PostgreSQL database integration
-- Search functionality (filter posts by keyword)
-- Pagination support
-- File upload API (store files locally)
-- JWT-based authentication used
-- FastAPI automatic Swagger documentation
+A RESTful Blog API built with **FastAPI** and **PostgreSQL**, supporting authentication, CRUD operations, search, pagination, and file uploads.
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features
+
+- 🔐 JWT Authentication (OAuth2)
+- 📝 CRUD operations for blog posts
+- 🔎 Search posts by keyword
+- 📄 Pagination support
+- 📁 File upload functionality
+- 🗄 PostgreSQL database integration
+- ⚡ FastAPI automatic Swagger docs (`/docs`)
+
+---
+
+## 🛠 Tech Stack
 
 - Python 3.11+
 - FastAPI
 - PostgreSQL
-- SQLAlchemy / ORM
-- Uvicorn
+- SQLAlchemy (ORM)
 - Pydantic
+- Uvicorn
+- OAuth2 + JWT
 
 ---
 
