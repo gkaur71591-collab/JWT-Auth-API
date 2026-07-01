@@ -1,4 +1,7 @@
-from fastapi import FastAPI,Depends,HTTPException, Query
+from fastapi import FastAPI,Depends,HTTPException, Query, UploadFile,File
+from fastapi.staticfiles import StaticFiles
+import os
+import shutil
 from sqlalchemy.orm import Session
 from database import engine,SessionLocal
 import model,schemas
@@ -89,3 +92,27 @@ def delete_blog(id:int,blog:schemas.BlogCreate,db:Session=Depends(get_db),user=D
     return {
             "message":"deleted successfully"
         }
+# file upload code
+UPLOAD_DIR="uploads"
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR)
+ #static file serving
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
+#upload fie API
+@app.post("/uploadfile")
+def upload_file(file:UploadFile=File(...),user=Depends(verify_token)):
+    file_path=os.path.join(UPLOAD_DIR,file.filename)
+    with open(file_path,"wb") as buffer:
+        shutil.copyfileobj(file.file,buffer)
+    return {"filename":file.filename,
+            "message":"file uploaded successfully",
+            "url": f"http://127.0.0.1:8000/uploads/{file.filename}"
+            }
+# get file url API
+@app.get("/uploads/{filename}")
+def get_file(filename: str):
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")   
+    return {"url": f"http://127.0.0.1:8000/uploads/{file.filename}"}
